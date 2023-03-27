@@ -1,5 +1,6 @@
-import { allowedNodeEnvironmentFlags } from "process";
+
 import prismaClient from "../../prisma";
+import { hash } from "bcryptjs";
 interface UserRequest {
   name: string;
   email: string;
@@ -10,6 +11,8 @@ class CreateUserService {
     if (!email) {
       throw new Error("Email incorrect")
     }
+
+    const passwordHash = await hash(password, 8)
 
     const userAlreadyExisrs = await prismaClient.user.findFirst({
       where: {
@@ -23,7 +26,7 @@ class CreateUserService {
       data: {
         name: name,
         email: email,
-        password: password,
+        password: passwordHash,
       },
 
       select: {
