@@ -16,15 +16,17 @@ class AuthUserService {
         })
 
         if (!user) {
-         throw new Error("User/password not found")  
-         return;
+
+         throw new Error("User/password not found") 
+         
         }
 
         const passwordMatch = await compare(password, user.password)
 
         if (!passwordMatch) {
+
             throw new Error("User/password not found")
-            return;
+            
         }
         return { ok: true }
 
