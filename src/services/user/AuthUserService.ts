@@ -23,6 +23,19 @@ class AuthUserService {
     if (!passwordMatch) {
       throw new Error("User/password not found");
     }
+
+    const token = sign(
+        {
+            name:user.name,
+            email: user.email,
+        },
+        process.env.JWT_SECRET,
+        {
+            subject:user.id,
+            expiresIn: '30d'
+        }
+    )
+
     return { ok: true };
   }
 }
