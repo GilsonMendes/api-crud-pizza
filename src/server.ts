@@ -23,5 +23,5 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction)=>{
 
 })
 //-------------
-
+// Start server -> yarn dev
 app.listen(3333, () => console.log('Servidor online!'))
